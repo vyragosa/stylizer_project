@@ -3,9 +3,9 @@ import tensorflow_hub as hub
 import tempfile
 
 class ImageStylizer:
-    def __init__(self, content_image_size=512, style_image_size=256):
+    def __init__(self, content_image_size=1024, style_image_size=512):
         self.content_image_size = content_image_size
-        self.style_image_size = style_image_size
+        self.style_image_size = style_image_size    
         self.hub_module = hub.load('https://tfhub.dev/google/magenta/arbitrary-image-stylization-v1-256/2')
 
     def load_image(self, uploaded_file, image_size):
