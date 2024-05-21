@@ -1,0 +1,13 @@
+name: stylizer_env
+channels:
+  - conda-forge
+dependencies:
+  - python=3.8
+  - tensorflow
+  - tensorflow-hub
+  - pip
+  - pip:
+      - django
+      - djangorestframework
+      - drf-yasg
+      - matplotlib
