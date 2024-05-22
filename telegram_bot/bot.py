@@ -14,6 +14,7 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 user_images = {}
+backend_url = os.getenv('BACKEND_URL')
 
 def start(update: Update, context: CallbackContext) -> None:
     update.message.reply_text('Привет! 🌟 Отправь мне два изображения: исходное и стиль, и я их стилизую! 🎨')
@@ -35,7 +36,7 @@ def handle_images(update: Update, context: CallbackContext) -> None:
         }
 
         update.message.reply_text('Обрабатываю изображение, подожди немного...')
-        response = requests.post('http://127.0.0.1:7777/stylize/', files=files)
+        response = requests.post(backend_url+'/stylize/', files=files)
         if response.status_code == 200:
             update.message.reply_photo(photo=BytesIO(response.content))
         else:
