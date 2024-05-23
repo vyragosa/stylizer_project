@@ -1,14 +1,17 @@
-FROM conda/miniconda3
+FROM continuumio/miniconda3
 
 WORKDIR /app
+COPY . .
 
-COPY environment.yml .
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    libpq-dev \
+    gcc \
+    && rm -rf /var/lib/apt/lists/*
 
-RUN conda env create -f /app/environment.yml
+RUN conda env create -f environment.yml
 
 SHELL ["conda", "run", "-n", "stylizer_env", "/bin/bash", "-c"]
-
-COPY . /app
 
 RUN pip install -r requirements.txt
 

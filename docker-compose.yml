@@ -5,16 +5,12 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    volumes:
-      - ./backend:/app
     restart: always
 
   bot:
     build:
       context: ./telegram_bot
       dockerfile: Dockerfile
-    volumes:
-      - ./bot:/app
     environment:
       TELEGRAM_BOT_TOKEN: 6639128192:AAEV_HHQKuIW_CZ-cA8Gie3pC6nidhb8xzA
       BACKEND_URL: http://nginx
