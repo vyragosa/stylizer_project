@@ -25,9 +25,8 @@ class StylizeImageView(APIView):
             stylizer = ImageStylizer()
             stylized_image = stylizer.stylize_image(content_image, style_image)
 
-            img = array_to_img(stylized_image)
             response = HttpResponse(content_type="image/jpeg")
-            img.save(response, 'JPEG')
+            stylized_image.save(response, 'JPEG')
 
             return response
 

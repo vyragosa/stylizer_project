@@ -1,6 +1,7 @@
 import tensorflow as tf
 import tensorflow_hub as hub
 import tempfile
+from tensorflow.keras.preprocessing.image import array_to_img
 
 class ImageStylizer:
     def __init__(self, content_image_size=1024, style_image_size=512):
@@ -24,4 +25,4 @@ class ImageStylizer:
         style_image = tf.nn.avg_pool(style_image, ksize=[3, 3], strides=[1, 1], padding='SAME')
         stylized_image = self.hub_module(tf.constant(content_image), tf.constant(style_image))[0]
         stylized_image = tf.squeeze(stylized_image, axis=0)
-        return stylized_image
+        return array_to_img(stylized_image)
