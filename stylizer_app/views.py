@@ -4,7 +4,7 @@ from rest_framework.response import Response
 from rest_framework.parsers import MultiPartParser, FormParser
 from rest_framework import status
 from .serializers import StylizedImageStylizerSerializer, StylizedImageDefaultSerializer
-from .image_stylizer import ImageStylizer
+from .services.image_stylizer import ImageStylizer
 from drf_yasg.utils import swagger_auto_schema
 
 class StylizeImageBaseView(APIView):

@@ -45,6 +45,7 @@ class ImageStylizer:
             style_image = tf.nn.avg_pool(style_image, ksize=[3, 3], strides=[1, 1], padding='SAME')
             stylized_image = self.hub_module(tf.constant(content_image), tf.constant(style_image))[0]
             stylized_image = tf.squeeze(stylized_image, axis=0)
+            # array_to_img(stylized_image).show()
             return array_to_img(stylized_image)
         except Exception as e:
             raise RuntimeError(f"Error during image stylization")
@@ -68,3 +69,25 @@ class ImageStylizer:
         content_image = self.load_image_from_path(self.default_images['content'], image_size=(self.content_image_size, self.content_image_size))
         style_image = self.load_image(style_image_file, image_size=(self.style_image_size, self.style_image_size))
         return self.stylize_images(content_image, style_image)
+
+
+if __name__ == "__main__":
+    stylizer = ImageStylizer()
+
+    content_image_path = '../Images/Golden_Gate_Bridge_from_Battery_Spencer.jpg'
+    style_image_path = '../Images/Golden_Gate_Bridge_from_Battery_Spencer.jpg'
+
+    with open(content_image_path, 'rb') as content_file, open(style_image_path, 'rb') as style_file:
+        stylized_image = stylizer.stylize_image(content_file, style_file)
+        stylized_image.show()
+
+    with open(content_image_path, 'rb') as content_file:
+        stylized_image = stylizer.stylize_with_default_style(content_file)
+        stylized_image.show()
+
+    stylized_image = stylizer.stylize_with_default_images()
+    stylized_image.show()
+
+    with open(style_image_path, 'rb') as style_file:
+        stylized_image = stylizer.stylize_with_default_content(style_file)
+        stylized_image.show()
